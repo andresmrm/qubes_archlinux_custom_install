@@ -62,7 +62,8 @@ from_repositories() {
 
 install_linking() {
     # Link files to system folders
-    sudo cp -rs $DEST/* /
+    shopt -s dotglob # include hidden files to glob (only works with bash!)
+    sudo cp -as $DEST/* /
 }
 
 
