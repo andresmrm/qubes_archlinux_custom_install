@@ -41,6 +41,7 @@ AUR package also needs:
 
 from_aur() {
     # Builds a package from AUR (needs yaourt)
+    mkdir -p $DEST
     cd /tmp
     yaourt --getpkgbuild $1
     sed -i 's@$pkgdir@'$DEST@g $1/PKGBUILD
@@ -52,8 +53,9 @@ from_aur() {
 from_repositories() {
     # Downloads a package and its dependencies from 
     # common repositories (uses pacman)
+    mkdir -p $TMPDIR
+    mkdir -p $DEST
     pacman -Sp $1 > $DEPENDENCIES
-    mkdir $TMPDIR
     wget -P $TMPDIR -i $DEPENDENCIES
     for i in $TMPDIR/*; do echo $i; tar -xf $i -C $DEST; done
     rm -rf $TMPDIR
